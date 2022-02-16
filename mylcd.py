@@ -1,11 +1,21 @@
-# SPDX-FileCopyrightText: 2021 ladyada for Adafruit Industries
-# SPDX-License-Identifier: MIT
-
 import board
 import terminalio
 import displayio
 from adafruit_display_text import label
 from adafruit_st7735r import ST7735R
+
+"""
+PINS:
+    3-5V VIN connects to the 3V
+    GND connects GND
+    SCK connects to SCK
+    SO connects to MI
+    MO/SI connects to MO.
+    TCS connects to our SPI Chip Select pin. C7, No.13
+    D/C connects to our SPI data/command select pin. D6, No12. 
+    RST connects to RST (e.g. B7 No.11).
+
+"""
 
 #class for LCD:
 class myLCD:
