@@ -9,7 +9,12 @@ from adafruit_st7735r import ST7735R
 
 #class for LCD:
 class myLCD:
-    def __init__(self, chipSelect, spiData, ) -> None:
+    """
+    Initialize LCD instance
+    chipSelect - pin for chipSelect (e.g. board.D5)
+    spiData - pin for spiData (e.g. board.D6)
+    """
+    def __init__(self, chipSelect, spiData) -> None:
         # Release any resources currently in use for the displays
         displayio.release_displays()
 
@@ -27,14 +32,27 @@ class myLCD:
         self.splash = displayio.Group()
         self.display.show(self.splash)
     
+    """
+    refreshes the screen with a blank slate
+    """
     def refresh(self):
         self.splash = displayio.Group()
         self.display.show(self.splash)
-    
+    """
+    displays text on the lcd
+    intext - text to display
+    incolor - color in hex
+    inx - x coordinate of the display
+    iny - y coordinate of the display
+    """
     def displayText(self, intext, incolor, inx, iny):
         text_area = label.Label(terminalio, text = intext, color = incolor, x=inx, y=iny)
         self.splash.append(text_area)
 
+    """
+    displays a bitmap image. 
+    location - directory of bmp file
+    """
     def displayBMP(self, location):
         with open(location, "rb") as bitmap_file:
 
