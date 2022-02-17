@@ -66,5 +66,7 @@ def stuttered_twist(loops):
 	        time.sleep(0.05)
 
 	    time.sleep(0.5)
-
-
+while(true):
+	split(5);
+	time.sleep(2);
+	sleep(5);
