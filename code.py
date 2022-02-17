@@ -5,10 +5,10 @@ import pwmio
 from adafruit_motor import servo
 
 # create a PWMOut object on Pin A2.
-pwm_l_foot = pwmio.PWMOut(board.D0, duty_cycle=2 ** 15, frequency=50)
-pwm_r_foot = pwmio.PWMOut(board.D1, duty_cycle=2 ** 15, frequency=50)
-pwm_l_leg = pwmio.PWMOut(board.D2, duty_cycle=2 ** 15, frequency=50)
-pwm_r_leg = pwmio.PWMOut(board.D3, duty_cycle=2 ** 15, frequency=50)
+pwm_l_foot = pwmio.PWMOut(board.D12, duty_cycle=2 ** 15, frequency=50)
+pwm_r_foot = pwmio.PWMOut(board.D11, duty_cycle=2 ** 15, frequency=50)
+pwm_l_leg = pwmio.PWMOut(board.D13, duty_cycle=2 ** 15, frequency=50)
+pwm_r_leg = pwmio.PWMOut(board.D10, duty_cycle=2 ** 15, frequency=50)
 
 # Create a servo object, my_servo.
 l_foot = servo.Servo(pwm_l_foot)
