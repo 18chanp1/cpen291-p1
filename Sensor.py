@@ -7,7 +7,6 @@ sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.A2, echo_pin=board.A3)
 piezo = pwmio.PWMOut(board.D10, duty_cycle=0, frequency=440, variable_frequency=True)
 
 print("running")
-
 while True:
     try:
         print(sonar.distance)
