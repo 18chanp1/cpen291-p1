@@ -21,8 +21,8 @@ PINS:
 class myLCD:
     """
     Initialize LCD instance
-    chipSelect - pin for chipSelect (e.g. board.D5)
-    spiData - pin for spiData (e.g. board.D6)
+    @:param chipSelect - pin for chipSelect (e.g. board.D13), pin 13
+    @:param spiData - pin for spiData (e.g. board.D12), pin 12
     """
     def __init__(self, chipSelect, spiData) -> None:
         # Release any resources currently in use for the displays
@@ -33,7 +33,7 @@ class myLCD:
         tft_dc = spiData
 
         display_bus = displayio.FourWire(
-            spi, command=tft_dc, chip_select=tft_cs, reset=board.D9
+            spi, command=tft_dc, chip_select=tft_cs, reset=board.D11
         )
 
         self.display = ST7735R(display_bus, width=128, height=128, colstart=2, rowstart=1)
@@ -56,7 +56,11 @@ class myLCD:
     iny - y coordinate of the display
     """
     def displayText(self, intext, incolor, inx, iny):
-        text_area = label.Label(terminalio, text = intext, color = incolor, x=inx, y=iny)
+        color_bitmap = displayio.Bitmap(128, 128, 1)
+        color_palette = displayio.Palette(1)
+        color_palette[0] = 0x000000  # Black
+
+        text_area = label.Label(terminalio.FONT, text = intext, color = incolor, x=inx, y=iny)
         self.splash.append(text_area)
 
     """
