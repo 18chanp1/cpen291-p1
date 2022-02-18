@@ -66,7 +66,91 @@ def stuttered_twist(loops):
             time.sleep(0.05)
 
         time.sleep(0.5)
+        
+def robot_move(loops):
+    # lift foot to vertical, spin out and back, drop foot to horizontal 
+    for i in range(loops):
+        for angle in range(90, 0, -5):
+            l_foot.angle = angle
+            time.sleep(0.05)
+            r_foot.angle = angle
+            time.sleep(0.05)
+            r_leg.angle = angle
+            time.sleep(0.05)
+            l_leg.angle = angle
+    for i in range(loops):
+        for angle in range(0, 90, 5):         
+            r_leg.angle = angle
+            time.sleep(0.05)
+            l_leg.angle = angle
+            time.sleep(0.05)
+            l_foot.angle = angle
+            time.sleep(0.05)
+            r_foot.angle = angle
+            time.sleep(0.05)
+    time.sleep(0.5)
 
+def step_forward(steps):
+    for i in range(steps):
+        if steps % 2 == 0:
+            for angle in range(90, 45, -5):
+                r_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(90, 0, -5):
+                r_leg.angle = angle
+                time.sleep(0.05)
+            for angle in range(45, 90, 5):
+                r_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(0, 90, 5):
+                r_leg.angle = angle
+                time.sleep(0.05)
+        else:
+            for angle in range(90, 45, -5):
+                l_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(90, 0, -5):
+                l_leg.angle = angle
+                time.sleep(0.05)
+            for angle in range(45, 90, 5):
+                l_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(0, 90, 5):
+                l_leg.angle = angle
+                time.sleep(0.05)
+    time.sleep(0.5)
+
+def step_backward(steps):
+    for i in range(steps):
+        if steps % 2 == 0:
+            for angle in range(90, 45, -5):
+                r_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(90, 180, 5):
+                r_leg.angle = angle
+                time.sleep(0.05)
+            for angle in range(45, 90, 5):
+                r_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(180, 90, -5):
+                r_leg.angle = angle
+                time.sleep(0.05)
+        else:
+            for angle in range(90, 45, -5):
+                l_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(90, 180, 5):
+                l_leg.angle = angle
+                time.sleep(0.05)
+            for angle in range(45, 90, 5):
+                l_foot.angle = angle
+                time.sleep(0.05)
+            for angle in range(180, 90, -5):
+                l_leg.angle = angle
+                time.sleep(0.05)
+    time.sleep(0.5)
+            
+    
 while(True):
    split(3)
    time.sleep(2)
