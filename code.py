@@ -53,7 +53,7 @@ def split(loops):
 
         time.sleep(0.5)
 
-def stuttered_twist(loops):
+def leg_twist(loops):
     for i in range(loops):
         for angle in range(90, 0, -5):  #shift legs inward
             l_leg.angle = angle
@@ -63,6 +63,20 @@ def stuttered_twist(loops):
         for angle in range(0, 90, 5):  #shift legs outward
             l_leg.angle = angle
             r_leg.angle = 180 - angle
+            time.sleep(0.05)
+
+        time.sleep(0.5)
+
+def foot_twist(loops):
+    for i in range(loops):
+        for angle in range(90, 0, -5):  #shift feet inward
+            l_foot.angle = angle
+            r_foot.angle = 180 - angle
+            time.sleep(0.05)
+
+        for angle in range(0, 90, 5):  #shift feet outward
+            l_foot.angle = angle
+            r_foot.angle = 180 - angle
             time.sleep(0.05)
 
         time.sleep(0.5)
