@@ -9,10 +9,10 @@ import adafruit_matrixkeypad
 
 
 # create a PWMOut object on Pin A2.
-pwm_l_foot = pwmio.PWMOut(board.D12, duty_cycle=2 ** 15, frequency=50)
-pwm_r_foot = pwmio.PWMOut(board.D13, duty_cycle=2 ** 15, frequency=50)
-pwm_l_leg = pwmio.PWMOut(board.D0, duty_cycle=2 ** 15, frequency=50)
-pwm_r_leg = pwmio.PWMOut(board.D1, duty_cycle=2 ** 15, frequency=50)
+pwm_l_foot = pwmio.PWMOut(board.SCL, duty_cycle=2 ** 15, frequency=50)
+pwm_r_foot = pwmio.PWMOut(board.SCK, duty_cycle=2 ** 15, frequency=50)
+pwm_l_leg = pwmio.PWMOut(board.SDA, duty_cycle=2 ** 15, frequency=50)
+pwm_r_leg = pwmio.PWMOut(board.TX, duty_cycle=2 ** 15, frequency=50)
 
 # Create a servo object, my_servo.
 l_foot = servo.Servo(pwm_l_foot)
@@ -177,6 +177,7 @@ theLCD.displayText("Gay", 0xFFFFFF, 0, 0)
 sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.A2, echo_pin=board.A3)
 piezo = pwmio.PWMOut(board.D10, duty_cycle=0, frequency=440, variable_frequency=True)
 
+#Keypad
 cols = [digitalio.DigitalInOut(x) for x in (board.D2, board.D7, board.D9)]
 rows = [digitalio.DigitalInOut(x) for x in (board.A5, board.A4, board.A1, board.A0)]
 keys = ((1, 2, 3),
@@ -200,7 +201,7 @@ while(True):
     except RuntimeError:
         print("Retrying!")
         piezo.duty_cycle = 0
-    time.sleep(0.1)
+        
     keys = keypad.pressed_keys
     if keys:
         print("Pressed: ", keys)
