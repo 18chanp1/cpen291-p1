@@ -3,6 +3,7 @@ import time
 import board
 import pwmio
 from adafruit_motor import servo
+from mylcd import *
 
 # create a PWMOut object on Pin A2.
 pwm_l_foot = pwmio.PWMOut(board.D12, duty_cycle=2 ** 15, frequency=50)
@@ -163,8 +164,12 @@ def step_backward(steps):
                 l_leg.angle = angle
                 time.sleep(0.05)
     time.sleep(0.5)
-            
     
+
+#LCD Display
+theLCD = myLCD(board.D13, board.D12)
+theLCD.displayText("Gay", 0xFFFFFF, 0, 0)
+ 
 while(True):
    split(3)
    time.sleep(2)
