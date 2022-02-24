@@ -2,6 +2,7 @@
 import time
 import board
 import pwmio
+import adafruit_hcsr04
 from adafruit_motor import servo
 from mylcd import *
 
@@ -169,11 +170,30 @@ def step_backward(steps):
 #LCD Display
 theLCD = myLCD(board.D13, board.D12)
 theLCD.displayText("Gay", 0xFFFFFF, 0, 0)
+
+#Sensor and Buzzer
+sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.A2, echo_pin=board.A3)
+piezo = pwmio.PWMOut(board.D10, duty_cycle=0, frequency=440, variable_frequency=True)
+
+
+while True:
+    
  
 while(True):
-   split(3)
-   time.sleep(2)
-   
-   stuttered_twist(3)
-   time.sleep(2)
+    try:
+        X = sonar.distance
+        if X >= 0:
+            piezo.duty_cycle = 0
+        if X < 10 and X >= 5:
+            piezo.frequency = 392
+            piezo.duty_cycle = 65535 // 10
+        if X < 5:
+            piezo.frequency = 523
+            piezo.duty_cycle = 65535 // 10
+    except RuntimeError:
+        print("Retrying!")
+        piezo.duty_cycle = 0
 
+    time.sleep(0.1)
+    
+  
