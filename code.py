@@ -185,8 +185,6 @@ keys = ((1, 2, 3),
         ('*', 0, '#'))
 
 keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
-
-while True:
     
 while(True):
     try:
