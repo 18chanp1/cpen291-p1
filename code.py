@@ -5,6 +5,8 @@ import pwmio
 import adafruit_hcsr04
 from adafruit_motor import servo
 from mylcd import *
+import adafruit_matrixkeypad
+
 
 # create a PWMOut object on Pin A2.
 pwm_l_foot = pwmio.PWMOut(board.D12, duty_cycle=2 ** 15, frequency=50)
@@ -175,7 +177,17 @@ theLCD.displayText("Gay", 0xFFFFFF, 0, 0)
 sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.A2, echo_pin=board.A3)
 piezo = pwmio.PWMOut(board.D10, duty_cycle=0, frequency=440, variable_frequency=True)
 
+cols = [digitalio.DigitalInOut(x) for x in (board.D2, board.D7, board.D9)]
+rows = [digitalio.DigitalInOut(x) for x in (board.A5, board.A4, board.A1, board.A0)]
+keys = ((1, 2, 3),
+        (4, 5, 6),
+        (7, 8, 9),
+        ('*', 0, '#'))
 
+keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
+
+while True:
+    
 while(True):
     try:
         X = sonar.distance
@@ -190,7 +202,10 @@ while(True):
     except RuntimeError:
         print("Retrying!")
         piezo.duty_cycle = 0
-
     time.sleep(0.1)
+    keys = keypad.pressed_keys
+    if keys:
+        print("Pressed: ", keys)
+    time.sleep(0.2)
     
   
