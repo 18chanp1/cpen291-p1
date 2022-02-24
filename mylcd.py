@@ -65,7 +65,7 @@ class myLCD:
 
     """
     displays a bitmap image. 
-    location - directory of bmp file
+    @:param location - directory of bmp file, string
     """
     def displayBMP(self, location):
         with open(location, "rb") as bitmap_file:

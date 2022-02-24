@@ -20,10 +20,17 @@ r_foot = servo.Servo(pwm_r_foot)
 l_leg = servo.Servo(pwm_l_leg)
 r_leg = servo.Servo(pwm_r_leg)
 
+#LCD Display
+theLCD = myLCD(board.D13, board.D12)
+theLCD.displayBMP("/images/S0.bmp")
+time.sleep(3)
+
 #REMEMBER SERVOS ARE BY DEFAULT AT 90
 
 #move legs in straight line, lift feet
 def split(loops):
+    theLCD.refresh()
+    theLCD.displayBMP("/images/M1-Split.bmp")
     for i in range(loops):
         for angle in range(90, 0, -5):  #don't remember which way it rotates
             l_leg.angle = angle
@@ -58,6 +65,8 @@ def split(loops):
         time.sleep(0.5)
 
 def leg_twist(loops):
+    theLCD.refresh()
+    theLCD.displayBMP("/images/M2-LegTwist.bmp")
     for i in range(loops):
         for angle in range(90, 0, -5):  #shift legs inward
             l_leg.angle = angle
@@ -72,6 +81,8 @@ def leg_twist(loops):
         time.sleep(0.5)
 
 def foot_twist(loops):
+    theLCD.refresh()
+    theLCD.displayBMP("/images/M3-FootTwist.bmp")
     for i in range(loops):
         for angle in range(90, 0, -5):  #shift feet inward
             l_foot.angle = angle
@@ -86,7 +97,9 @@ def foot_twist(loops):
         time.sleep(0.5)
         
 def robot_move(loops):
-    # lift foot to vertical, spin out and back, drop foot to horizontal 
+    # lift foot to vertical, spin out and back, drop foot to horizontal
+    theLCD.refresh()
+    theLCD.displayBMP("/images/M4-RobotMove.bmp")
     for i in range(loops):
         for angle in range(90, 0, -5):
             l_foot.angle = angle
@@ -109,6 +122,8 @@ def robot_move(loops):
     time.sleep(0.5)
 
 def step_forward(steps):
+    theLCD.refresh()
+    theLCD.displayBMP("/images/M5-StepForward.bmp")
     for i in range(steps):
         if steps % 2 == 0:
             for angle in range(90, 45, -5):
@@ -139,6 +154,8 @@ def step_forward(steps):
     time.sleep(0.5)
 
 def step_backward(steps):
+    theLCD.refresh()
+    theLCD.displayBMP("/images/M6-StepBackward.bmp")
     for i in range(steps):
         if steps % 2 == 0:
             for angle in range(90, 45, -5):
@@ -167,11 +184,7 @@ def step_backward(steps):
                 l_leg.angle = angle
                 time.sleep(0.05)
     time.sleep(0.5)
-    
 
-#LCD Display
-theLCD = myLCD(board.D13, board.D12)
-theLCD.displayText("Gay", 0xFFFFFF, 0, 0)
 
 #Sensor and Buzzer
 sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.A2, echo_pin=board.A3)
