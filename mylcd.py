@@ -1,6 +1,5 @@
-import time
-
 import board
+import time
 import terminalio
 import displayio
 from adafruit_display_text import label
@@ -50,7 +49,6 @@ class myLCD:
     def refresh(self):
         self.splash = displayio.Group()
         self.display.show(self.splash)
-        time.sleep(1)
     """
     displays text on the lcd
     intext - text to display
@@ -65,11 +63,10 @@ class myLCD:
 
         text_area = label.Label(terminalio.FONT, text = intext, color = incolor, x=inx, y=iny)
         self.splash.append(text_area)
-        time.sleep(1)
 
     """
     displays a bitmap image. 
-    @:param location - directory of bmp file, string
+    location - directory of bmp file
     """
     def displayBMP(self, location):
         with open(location, "rb") as bitmap_file:
@@ -86,4 +83,4 @@ class myLCD:
             # Add the TileGrid to the Group
             self.splash.append(tile_grid)
 
-            time.sleep(2)
+            time.sleep(0.1)
