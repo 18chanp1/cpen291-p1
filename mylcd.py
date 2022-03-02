@@ -5,6 +5,7 @@ import displayio
 from adafruit_display_text import label
 from adafruit_st7735r import ST7735R
 
+
 """
 PINS:
     3-5V VIN connects to the 3V
@@ -42,6 +43,7 @@ class myLCD:
         # Make the display context
         self.splash = displayio.Group()
         self.display.show(self.splash)
+        self.time = time.time()
     
     """
     refreshes the screen with a blank slate
@@ -84,3 +86,8 @@ class myLCD:
             self.splash.append(tile_grid)
 
             time.sleep(0.1)
+
+    def displayTime(self, incolor):
+        currentTime = time.time()
+        theLocal = "Time running: " + str(currentTime - self.time) + "s"
+        self.displayText(theLocal, incolor, 5, 110)

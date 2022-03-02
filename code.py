@@ -27,6 +27,7 @@ r_leg = servo.Servo(pwm_r_leg)
 def split(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M1-Split.bmp")
+    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):  #don't remember which way it rotates
             l_leg.angle = angle
@@ -63,6 +64,7 @@ def split(loops):
 def leg_twist(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M2-LegTwist.bmp")
+    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):  #shift legs inward
             l_leg.angle = angle
@@ -79,6 +81,7 @@ def leg_twist(loops):
 def foot_twist(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M3-FootTwist.bmp")
+    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):  #shift feet inward
             l_foot.angle = angle
@@ -96,6 +99,7 @@ def robot_move(loops):
     # lift foot to vertical, spin out and back, drop foot to horizontal
     theLCD.refresh()
     theLCD.displayBMP("/images/M4-RobotMove.bmp")
+    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):
             l_foot.angle = angle
@@ -120,6 +124,7 @@ def robot_move(loops):
 def step_forward(steps):
     theLCD.refresh()
     theLCD.displayBMP("/images/M5-StepForward.bmp")
+    theLCD.displayTime(0xffffff)
     for i in range(steps):
         if steps % 2 == 0:
             for angle in range(90, 45, -5):
@@ -150,8 +155,9 @@ def step_forward(steps):
     time.sleep(0.5)
 
 def step_backward(steps):
-    # theLCD.refresh()
+    theLCD.refresh()
     theLCD.displayBMP("/images/M6-StepBackward.bmp")
+    theLCD.displayTime(0xffffff)
     for i in range(steps):
         if steps % 2 == 0:
             for angle in range(90, 45, -5):
@@ -200,6 +206,9 @@ keys = ((1, 2, 3),
         ('*', 0, '#'))
 
 keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
+
+#record time
+startTime = time.time()
 
 while(True):
     try:
