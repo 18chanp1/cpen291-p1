@@ -10,7 +10,7 @@ tones = {
 
 piezo = pwmio.PWMOut(board.D10, duty_cycle=0, frequency=440, variable_frequency=True)
 
-song = ["A","B","C","D","E","F","G"]
+song = ["A","B","C","C","D","B","A", "G", "P", "P", "A", "A", "B", "C", "A", "P", "G", "G", "G", "D"]
 
 def playtone(frequency):
     piezo.duty_cycle = 65535 // 10
@@ -23,9 +23,12 @@ def playsong(mysong):
     for i in range(len(mysong)):
         if (mysong[i] == "P"):
             bequiet()
+            time.sleep(0.3)
         else:
             playtone(tones[mysong[i]])
-        time.sleep(0.3)
+            time.sleep(0.3)
+            bequiet()
+            time.sleep(0.02)
     bequiet()
 
 while True:
