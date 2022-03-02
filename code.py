@@ -184,7 +184,7 @@ def step_backward(steps):
 
 #LCD Display
 theLCD = myLCD(board.D13, board.D12)
-theLCD.displayText("Gay", 0xFFFFFF, 0, 0)
+theLCD.displayBMP("/images/S0.bmp")
 
 
 #Sensor and Buzzer
