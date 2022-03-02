@@ -24,10 +24,9 @@ r_leg = servo.Servo(pwm_r_leg)
 #REMEMBER SERVOS ARE BY DEFAULT AT 90
 
 #move legs in straight line, lift feet
-def split(loops):
+def ankle(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M1-Split.bmp")
-    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):  #don't remember which way it rotates
             l_leg.angle = angle
@@ -61,36 +60,34 @@ def split(loops):
 
         time.sleep(0.5)
 
-def leg_twist(loops):
+def right_twist(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M2-LegTwist.bmp")
-    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):  #shift legs inward
             l_leg.angle = angle
-            r_leg.angle = 180 - angle
+            r_leg.angle = angle
             time.sleep(0.05)
 
         for angle in range(0, 90, 5):  #shift legs outward
             l_leg.angle = angle
-            r_leg.angle = 180 - angle
+            r_leg.angle = angle
             time.sleep(0.05)
 
         time.sleep(0.5)
 
-def foot_twist(loops):
+def left_twist(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M3-FootTwist.bmp")
-    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):  #shift feet inward
             l_foot.angle = angle
-            r_foot.angle = 180 - angle
+            r_foot.angle = angle
             time.sleep(0.05)
 
         for angle in range(0, 90, 5):  #shift feet outward
             l_foot.angle = angle
-            r_foot.angle = 180 - angle
+            r_foot.angle = angle
             time.sleep(0.05)
 
         time.sleep(0.5)
@@ -99,7 +96,6 @@ def robot_move(loops):
     # lift foot to vertical, spin out and back, drop foot to horizontal
     theLCD.refresh()
     theLCD.displayBMP("/images/M4-RobotMove.bmp")
-    theLCD.displayTime(0xffffff)
     for i in range(loops):
         for angle in range(90, 0, -5):
             l_foot.angle = angle
@@ -109,7 +105,7 @@ def robot_move(loops):
             r_leg.angle = angle
             time.sleep(0.05)
             l_leg.angle = angle
-    for i in range(loops):
+    #for i in range(loops):
         for angle in range(0, 90, 5):
             r_leg.angle = angle
             time.sleep(0.05)
@@ -124,7 +120,6 @@ def robot_move(loops):
 def step_forward(steps):
     theLCD.refresh()
     theLCD.displayBMP("/images/M5-StepForward.bmp")
-    theLCD.displayTime(0xffffff)
     for i in range(steps):
         if steps % 2 == 0:
             for angle in range(90, 45, -5):
@@ -155,9 +150,8 @@ def step_forward(steps):
     time.sleep(0.5)
 
 def step_backward(steps):
-    theLCD.refresh()
+    # theLCD.refresh()
     theLCD.displayBMP("/images/M6-StepBackward.bmp")
-    theLCD.displayTime(0xffffff)
     for i in range(steps):
         if steps % 2 == 0:
             for angle in range(90, 45, -5):
@@ -194,7 +188,7 @@ theLCD.displayText("Gay", 0xFFFFFF, 0, 0)
 
 
 #Sensor and Buzzer
-sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.A2, echo_pin=board.A3)
+sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.A3, echo_pin=board.A2)
 piezo = pwmio.PWMOut(board.D10, duty_cycle=0, frequency=440, variable_frequency=True)
 
 #Keypad
@@ -206,14 +200,15 @@ keys = ((1, 2, 3),
         ('*', 0, '#'))
 
 keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
+move_dict = {2: lambda x: step_backward(x),3: lambda x: step_forward(x),
+             4: lambda x: robot_move(x), 5: lambda x: ankle(x),
+             6: lambda x: right_twist(x), 7: lambda x: left_twist(x)}
 
-#record time
-startTime = time.time()
+
 
 while(True):
     try:
         X = sonar.distance
-        print(X)
         if X >= 0:
             piezo.duty_cycle = 0
         if X < 10 and X >= 5:
@@ -229,13 +224,14 @@ while(True):
     keys = keypad.pressed_keys
     if keys:
         print("Pressed: ", keys)
+        if(int(keys[0]) == 1):
+            break
+        else:
+            move_dict[int(keys[0])](2)          #repeat movement twice
     time.sleep(0.2)
-    
-    step_backward(2);
-    step_forward(2);
-    robot_move(2);
-    split(2);
-    leg_twist(2);
-    foot_twist(2);
+
+
+
+
 
 
