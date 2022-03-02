@@ -209,14 +209,15 @@ move_dict = {2: lambda x: step_backward(x),3: lambda x: step_forward(x),
 while(True):
     try:
         X = sonar.distance
-        if X >= 0:
+        if X >= 20:
             piezo.duty_cycle = 0
-        if X < 10 and X >= 5:
+        if X < 20 and X >= 10:
             piezo.frequency = 392
             piezo.duty_cycle = 65535 // 10
-        if X < 5:
+        if X < 10:
             piezo.frequency = 523
             piezo.duty_cycle = 65535 // 10
+            
     except RuntimeError:
         print("Retrying!")
         piezo.duty_cycle = 0
