@@ -1,4 +1,3 @@
-"""CircuitPython Essentials Servo standard servo example"""
 import time
 import board
 import pwmio
@@ -8,6 +7,7 @@ from mylcd import *
 from ticTacToe import *
 import adafruit_matrixkeypad
 import digitalio
+#for command no more
 
 
 # create a PWMOut object on Pin A2.
@@ -182,6 +182,24 @@ def step_backward(steps):
                 time.sleep(0.05)
     time.sleep(0.5)
 
+
+def all_moves(loops):
+	step_backward(loops)
+	time.sleep(0.5)
+
+	step_forward(loops)
+	time.sleep(0.5)
+
+	robot_move(loops)
+	time.sleep(0.5)
+
+	left_twist(loops)
+	time.sleep(0.5)
+
+	right_twise(loops)
+	time.sleep(0.5)
+
+
 #LCD Display
 theLCD = myLCD(board.D13, board.D12)
 theLCD.displayBMP("/images/S0.bmp")
@@ -200,10 +218,10 @@ keys = ((1, 2, 3),
         ('*', 0, '#'))
 
 keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
-move_dict = {2: lambda x: step_backward(x),3: lambda x: step_forward(x),
-             4: lambda x: robot_move(x), 5: lambda x: ankle(x),
-             6: lambda x: right_twist(x), 7: lambda x: left_twist(x),
-             0: lambda x: playTTT(keypad)}
+move_dict = {1: lambda x: all_moves(x), 2: lambda x: step_backward(x),
+			 3: lambda x: step_forward(x), 4: lambda x: robot_move(x), 
+			 5: lambda x: ankle(x), 6: lambda x: right_twist(x), 
+			 7: lambda x: left_twist(x), 8: lambda x: playTTT(keypad)}
 
 def playTTT(keyInput: adafruit_matrixkeypad):
     theLCD.refresh()
@@ -222,19 +240,28 @@ def playTTT(keyInput: adafruit_matrixkeypad):
 
 
 while(True):
+    try:
+        X = sonar.distance
+        if X >= 20:
+            piezo.duty_cycle = 0
+        if X < 20 and X >= 10:
+            piezo.frequency = 392
+            piezo.duty_cycle = 65535 // 10
+        if X < 10:
+            piezo.frequency = 523
+            piezo.duty_cycle = 65535 // 10
 
+    except RuntimeError:
+        print("Retrying!")
+        piezo.duty_cycle = 0
 
     keys = keypad.pressed_keys
     if keys:
         print("Pressed: ", keys)
-        if(int(keys[0]) == 1):
+        if(int(keys[0]) == 0):
             break
         else:
             move_dict[int(keys[0])](2)          #repeat movement twice
     time.sleep(0.2)
-
-
-
-
 
 
