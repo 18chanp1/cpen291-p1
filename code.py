@@ -7,6 +7,7 @@ from adafruit_motor import servo
 from mylcd import *
 import adafruit_matrixkeypad
 import digitalio
+#for command no more
 
 
 # create a PWMOut object on Pin A2.
