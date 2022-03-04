@@ -58,9 +58,9 @@ class TicTacToe:
                     move = self.keypad.pressed_keys[0] - 1
                     break
             
-            if self.played.__contains__(move):
+            if isinstance(move, int) or self.played.__contains__(move) or move < 0:
                 if not displayedWarning:
-                    self.display.displayText("Box taken idiot", 0xfffff0, 5, 110)
+                    self.display.displayText("Box taken or wrong button idiot", 0xfffff0, 5, 110)
                     displayedWarning = True
                 time.sleep(0.3)
                 
