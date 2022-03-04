@@ -91,3 +91,6 @@ class myLCD:
         currentTime = time.time()
         theLocal = "Time running: " + str(currentTime - self.time) + "s"
         self.displayText(theLocal, incolor, 5, 110)
+
+    def popElement(self):
+        self.splash.pop()

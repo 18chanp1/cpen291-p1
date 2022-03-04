@@ -5,6 +5,7 @@ import pwmio
 import adafruit_hcsr04
 from adafruit_motor import servo
 from mylcd import *
+from ticTacToe import *
 import adafruit_matrixkeypad
 import digitalio
 
@@ -181,7 +182,6 @@ def step_backward(steps):
                 time.sleep(0.05)
     time.sleep(0.5)
 
-
 #LCD Display
 theLCD = myLCD(board.D13, board.D12)
 theLCD.displayBMP("/images/S0.bmp")
@@ -202,24 +202,27 @@ keys = ((1, 2, 3),
 keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
 move_dict = {2: lambda x: step_backward(x),3: lambda x: step_forward(x),
              4: lambda x: robot_move(x), 5: lambda x: ankle(x),
-             6: lambda x: right_twist(x), 7: lambda x: left_twist(x)}
+             6: lambda x: right_twist(x), 7: lambda x: left_twist(x),
+             0: lambda x: playTTT(keypad)}
+
+def playTTT(keyInput: adafruit_matrixkeypad):
+    theLCD.refresh()
+    ttt = TicTacToe(theLCD, keyInput)  # initialize a game
+    while True:
+        ttt.playerNextMove()  # X starts first
+        if (ttt.terminate('X')): break  # if X won or a draw, print message and terminate
+        ttt.computerNextMove()  # computer plays O
+        if (ttt.terminate('O')): break  # if O won or a draw, print message and terminate
+
+    print("finish ttt")
+    time.sleep(3)
+    theLCD.refresh()
+    theLCD.displayBMP("/images/S0.bmp")
 
 
 
 while(True):
-    try:
-        X = sonar.distance
-        if X >= 0:
-            piezo.duty_cycle = 0
-        if X < 10 and X >= 5:
-            piezo.frequency = 392
-            piezo.duty_cycle = 65535 // 10
-        if X < 5:
-            piezo.frequency = 523
-            piezo.duty_cycle = 65535 // 10
-    except RuntimeError:
-        print("Retrying!")
-        piezo.duty_cycle = 0
+
 
     keys = keypad.pressed_keys
     if keys:
