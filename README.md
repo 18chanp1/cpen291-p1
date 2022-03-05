@@ -1,6 +1,7 @@
 #Fancy Robot
 
 #Keypad Input
+
 Press the keypad to execute the following actions. Only press buttons when
 the dance moves are complete / splash screen shows. 
 
