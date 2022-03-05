@@ -19,6 +19,9 @@ PINS:
 
 """
 
+"""
+A class to easily display common elements on the LCD. 
+"""
 #class for LCD:
 class myLCD:
     """
@@ -87,10 +90,17 @@ class myLCD:
 
             time.sleep(0.1)
 
+    """
+    displays the time since the LCD has started running, in seconds, on the screen
+    @:param incolor - the color of the text. 
+    """
     def displayTime(self, incolor):
         currentTime = time.time()
         theLocal = "Time running: " + str(currentTime - self.time) + "s"
         self.displayText(theLocal, incolor, 5, 110)
 
+    """
+    Removes the last element appended to the LCD group.
+    """
     def popElement(self):
         self.splash.pop()

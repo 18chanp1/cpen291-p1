@@ -223,6 +223,10 @@ move_dict = {1: lambda x: all_moves(x), 2: lambda x: step_backward(x),
 			 5: lambda x: ankle(x), 6: lambda x: right_twist(x), 
 			 7: lambda x: left_twist(x), 8: lambda x: playTTT(keypad)}
 
+"""
+starts a game of tic-tac-toe
+@param keyInput - contains the matrix keypad object which interfaces with the keypad
+"""
 def playTTT(keyInput: adafruit_matrixkeypad):
     theLCD.refresh()
     ttt = TicTacToe(theLCD, keyInput)  # initialize a game
