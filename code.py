@@ -10,6 +10,8 @@ import digitalio
 #for command no more
 
 
+
+
 # create a PWMOut object on Pin A2.
 pwm_l_foot = pwmio.PWMOut(board.SDA, duty_cycle=2 ** 15, frequency=50)
 pwm_r_foot = pwmio.PWMOut(board.TX, duty_cycle=2 ** 15, frequency=50)
@@ -65,6 +67,7 @@ def ankle(loops):
     theLCD.displayBMP("/images/S0.bmp")
 
 def right_twist(loops):
+    theLCD.ee += 2
     theLCD.refresh()
     theLCD.displayBMP("/images/M2-LegTwist.bmp")
     for i in range(loops):
@@ -265,6 +268,7 @@ sensor on the LCD. Press any key to exit.
 @:param keyInput - the keypad used to detect any exit requests. 
 """
 def rangefinder(keyInput: adafruit_matrixkeypad):
+    theLCD.ee += 1
     theLCD.refresh()
     theLCD.displayBMP("/images/R0.bmp")
     theLCD.displayText("Press any key to exit", 0xffffff, 20, 120)
@@ -279,6 +283,14 @@ def rangefinder(keyInput: adafruit_matrixkeypad):
     theLCD.refresh()
     theLCD.displayBMP("images/S0.bmp")
 
+def EE():
+    theLCD.refresh()
+    theLCD.displayBMP("images/E0.bmp")
+
+    time.sleep(3)
+
+    theLCD.refresh()
+    theLCD.displayBMP("images/S0.bmp")
 
 while(True):
     try:
@@ -305,4 +317,5 @@ while(True):
             move_dict[int(keys[0])](2)          #repeat movement twice
     time.sleep(0.2)
 
-
+    if theLCD.ee % 3 == 0:
+        EE()

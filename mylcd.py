@@ -47,6 +47,7 @@ class myLCD:
         self.splash = displayio.Group()
         self.display.show(self.splash)
         self.time = time.time()
+        self.ee = 0
     
     """
     refreshes the screen with a blank slate
