@@ -238,7 +238,8 @@ keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
 move_dict = {1: lambda x: all_moves(x), 2: lambda x: step_backward(x),
 			 3: lambda x: step_forward(x), 4: lambda x: robot_move(x), 
 			 5: lambda x: ankle(x), 6: lambda x: right_twist(x), 
-			 7: lambda x: left_twist(x), 8: lambda x: playTTT(keypad)}
+			 7: lambda x: left_twist(x), 8: lambda x: playTTT(keypad),
+             9: lambda x: rangefinder(keypad)}
 
 """
 starts a game of tic-tac-toe
@@ -257,7 +258,26 @@ def playTTT(keyInput: adafruit_matrixkeypad):
     time.sleep(3)
     theLCD.refresh()
     theLCD.displayBMP("/images/S0.bmp")
+"""
+Starts the rangefinder mode, which displays the distance detected by the sonar
+sensor on the LCD. Press any key to exit.
 
+@:param keyInput - the keypad used to detect any exit requests. 
+"""
+def rangefinder(keyInput: adafruit_matrixkeypad):
+    theLCD.refresh()
+    theLCD.displayBMP("/images/R0.bmp")
+    theLCD.displayText("Press any key to exit", 0xffffff, 20, 120)
+    theLCD.displayText("", 0xffffff, 30, 90)
+
+    while(not keyInput.pressed_keys()):
+        theLCD.popElement()
+        dist = sonar.distance
+        theLCD.displayText(str(round(dist, 2)), 0xfffff0, 20,90)
+        time.sleep(0.2)
+
+    theLCD.refresh()
+    theLCD.displayBMP("images/S0.bmp")
 
 
 while(True):
