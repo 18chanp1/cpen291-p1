@@ -15,6 +15,7 @@ the dance moves are complete / splash screen shows.
 | 6      | Right twist      |
 | 7      | Left twist       |
 | 8      | Play Tic-Tac-Toe |
+| 9      | Rangefinder      |
 
 
 # About Tic-Tac-Toe
