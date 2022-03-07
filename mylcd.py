@@ -105,3 +105,12 @@ class myLCD:
     """
     def popElement(self):
         self.splash.pop()
+
+    def EE(self):
+        self.refresh()
+        self.displayBMP("images/E0.bmp")
+
+        time.sleep(3)
+
+        self.refresh()
+        self.displayBMP("images/S0.bmp")

@@ -283,14 +283,7 @@ def rangefinder(keyInput: adafruit_matrixkeypad):
     theLCD.refresh()
     theLCD.displayBMP("images/S0.bmp")
 
-def EE():
-    theLCD.refresh()
-    theLCD.displayBMP("images/E0.bmp")
 
-    time.sleep(3)
-
-    theLCD.refresh()
-    theLCD.displayBMP("images/S0.bmp")
 
 while(True):
     try:
@@ -318,4 +311,4 @@ while(True):
     time.sleep(0.2)
 
     if theLCD.ee % 3 == 0:
-        EE()
+        theLCD.EE()
