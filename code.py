@@ -61,6 +61,9 @@ def ankle(loops):
 
         time.sleep(0.5)
 
+    theLCD.refresh()
+    theLCD.displayBMP("/images/S0.bmp")
+
 def right_twist(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M2-LegTwist.bmp")
@@ -76,6 +79,8 @@ def right_twist(loops):
             time.sleep(0.05)
 
         time.sleep(0.5)
+    theLCD.refresh()
+    theLCD.displayBMP("/images/S0.bmp")
 
 def left_twist(loops):
     theLCD.refresh()
@@ -92,6 +97,9 @@ def left_twist(loops):
             time.sleep(0.05)
 
         time.sleep(0.5)
+
+    theLCD.refresh()
+    theLCD.displayBMP("/images/S0.bmp")
 
 def robot_move(loops):
     # lift foot to vertical, spin out and back, drop foot to horizontal
@@ -117,6 +125,9 @@ def robot_move(loops):
             r_foot.angle = angle
             time.sleep(0.05)
     time.sleep(0.5)
+
+    theLCD.refresh()
+    theLCD.displayBMP("/images/S0.bmp")
 
 def step_forward(steps):
     theLCD.refresh()
@@ -150,6 +161,9 @@ def step_forward(steps):
                 time.sleep(0.05)
     time.sleep(0.5)
 
+    theLCD.refresh()
+    theLCD.displayBMP("/images/S0.bmp")
+
 def step_backward(steps):
     # theLCD.refresh()
     theLCD.displayBMP("/images/M6-StepBackward.bmp")
@@ -182,6 +196,9 @@ def step_backward(steps):
                 time.sleep(0.05)
     time.sleep(0.5)
 
+    theLCD.refresh()
+    theLCD.displayBMP("/images/S0.bmp")
+
 
 def all_moves(loops):
 	step_backward(loops)
@@ -196,7 +213,7 @@ def all_moves(loops):
 	left_twist(loops)
 	time.sleep(0.5)
 
-	right_twise(loops)
+	right_twist(loops)
 	time.sleep(0.5)
 
 
