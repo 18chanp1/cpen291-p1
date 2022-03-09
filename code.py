@@ -591,6 +591,7 @@ while(True):
         if X < 10:
             piezo.frequency = 523
             piezo.duty_cycle = 65535 // 10
+	    time.sleep(3)
     except RuntimeError:
         print("Retrying!")
         piezo.duty_cycle = 0
