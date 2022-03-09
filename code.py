@@ -242,6 +242,9 @@ def all_moves(loops):
 
 	right_twist(loops)
 	time.sleep(0.5)
+	
+	ankle(loops)
+	time.sleep(0.5)
 
 #------ LCD CLASS ------#
 """
