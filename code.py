@@ -276,7 +276,7 @@ class myLCD:
         self.splash = displayio.Group()
         self.display.show(self.splash)
         self.time = time.time()
-        self.ee = 0
+        self.ee = 1
     
     """
     refreshes the screen with a blank slate
@@ -603,9 +603,9 @@ while(True):
             piezo.frequency = 392
             piezo.duty_cycle = 65535 // 10
         if X < 10:
-            piezo.frequency = 523
-            piezo.duty_cycle = 65535 // 10
-	    time.sleep(3)
+            theLCD.displayBMP("/images/P0.bmp")
+            time.sleep(3)
+            theLCD.displayBMP("images/S0.bmp")
     except RuntimeError:
         piezo.duty_cycle = 0
         
@@ -618,6 +618,6 @@ while(True):
             move_dict[int(keys[0])](2)  #repeat movement twice if selected
     time.sleep(0.2)
 
-    # if theLCD.ee % 3 == 0:
-    #     theLCD.ee = 0
-    #     theLCD.EE()
+    if theLCD.ee % 3 == 1 and theLCD.ee != 1:
+        theLCD.ee = 0
+        theLCD.EE()
