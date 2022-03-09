@@ -38,19 +38,21 @@ r_foot = servo.Servo(pwm_r_foot)
 l_leg = servo.Servo(pwm_l_leg)
 r_leg = servo.Servo(pwm_r_leg)
 
+#------ DANCE MOVES ------#
+
 #move legs in straight line, lift feet
 def ankle(loops):
     theLCD.refresh()
     theLCD.displayBMP("/images/M1-Split.bmp")
     for i in range(loops):
-        for angle in range(90, 0, -5):  #don't remember which way it rotates
+        for angle in range(90, 0, -5):  
             l_leg.angle = angle
             time.sleep(0.05)
         for angle in range(90, 180, 5):
             r_leg.angle = angle
             time.sleep(0.05)
 
-        for angle in range(90, 45, -5):  #don't remember which way it rotates
+        for angle in range(90, 45, -5):  
             l_foot.angle = angle
             time.sleep(0.05)
         for angle in range(90, 135, 5):
@@ -59,14 +61,14 @@ def ankle(loops):
 
         time.sleep(0.5)
 
-        for angle in range(45, 90, 5):  #don't remember which way it rotates
+        for angle in range(45, 90, 5):  
             l_foot.angle = angle
             time.sleep(0.05)
         for angle in range(135, 90, -5):
             r_foot.angle = angle
             time.sleep(0.05)
 
-        for angle in range(0, 90, 5):  #don't remember which way it rotates
+        for angle in range(0, 90, 5):  
             l_leg.angle = angle
             time.sleep(0.05)
         for angle in range(180, 90, -5):
@@ -231,7 +233,7 @@ def all_moves(loops):
 	right_twist(loops)
 	time.sleep(0.5)
 
-# LCD
+#------ LCD CLASS ------#
 """
 This section contains the LCD information
 PINS:
@@ -347,7 +349,7 @@ theLCD = myLCD(board.D13, board.D12)
 theLCD.displayBMP("/images/S0.bmp")
 
 
-# Sensor and Buzzer
+#------ SENSOR AND BUZZER ------#
 """
 SENSOR PINS:
     TRIGGER -> A3
@@ -383,7 +385,7 @@ def rangefinder(keyInput: adafruit_matrixkeypad):
     theLCD.refresh()
     theLCD.displayBMP("images/S0.bmp")
     
-# Keypad
+#------ KEYPAD ------#
 """
 KEYPAD PINS:
     ROWS: 
@@ -403,14 +405,15 @@ keys = ((1, 2, 3),
         (7, 8, 9),
         ('*', 0, '#'))
 
+#Keys 1-7 = dance moves, 8 = tic tac toe, 9 = range finder
 keypad = adafruit_matrixkeypad.Matrix_Keypad(rows, cols, keys)
 move_dict = {1: lambda x: all_moves(x), 2: lambda x: step_backward(x),
 			 3: lambda x: step_forward(x), 4: lambda x: robot_move(x), 
 			 5: lambda x: ankle(x), 6: lambda x: right_twist(x), 
 			 7: lambda x: left_twist(x), 8: lambda x: playTTT(keypad),
-             9: lambda x: rangefinder(keypad)}
+             		 9: lambda x: rangefinder(keypad)}
 
-# Tic Tac Toe on LCD
+#------ TIC TAC TOE ON LCD ------#
 """
 The TIC TAC Toe Mode can be enabled by pressing 0. 
 Tic tac toe class contains the tic tac toe object 
@@ -557,6 +560,7 @@ class TicTacToe:
             return True
         else:
             return False
+
 def playTTT(keyInput: adafruit_matrixkeypad):
     """
         starts a game of tic-tac-toe
@@ -576,11 +580,11 @@ def playTTT(keyInput: adafruit_matrixkeypad):
     theLCD.displayBMP("/images/S0.bmp")
 
 
-
+#------ MAIN LOOP ------#
 
 while(True):
     
-    # make a buzz noise based on distance from object in front
+    # make a buzzer noise based on distance from object in front
     try:
         X = sonar.distance
         if X >= 20:
@@ -593,18 +597,15 @@ while(True):
             piezo.duty_cycle = 65535 // 10
 	    time.sleep(3)
     except RuntimeError:
-        print("Retrying!")
         piezo.duty_cycle = 0
         
-    # print pressed keys 
     keys = keypad.pressed_keys
     if keys:
-        print("Pressed: ", keys)
-        if(int(keys[0]) == 0):
+        if(int(keys[0]) == 0): #terminate program with key 0
             break
         else:
             # move_dict is a list of functions (returned from closures)
-            move_dict[int(keys[0])](2)  #repeat movement twice
+            move_dict[int(keys[0])](2)  #repeat movement twice if selected
     time.sleep(0.2)
 
     if theLCD.ee % 3 == 0:
