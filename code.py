@@ -369,17 +369,27 @@ sensor on the LCD. Press any key to exit.
 
 @:param keyInput - the keypad used to detect any exit requests. 
 """
+
+
 def rangefinder(keyInput: adafruit_matrixkeypad):
     theLCD.ee += 1
     theLCD.refresh()
     theLCD.displayBMP("/images/R0.bmp")
-    theLCD.displayText("Press any key to exit", 0xffffff, 20, 120)
+    theLCD.displayText("Hold any key \n to exit", 0xffffff, 30, 105)
     theLCD.displayText("", 0xffffff, 30, 90)
 
-    while(not keyInput.pressed_keys()):
+    time.sleep(0.3)
+
+    while (True):
+        if keyInput.pressed_keys:
+            break
         theLCD.popElement()
-        dist = sonar.distance
-        theLCD.displayText(str(round(dist, 2)), 0xfffff0, 20,90)
+        try:
+            dist = sonar.distance
+            theLCD.displayText(str(dist) + " cm", 0xfffff0, 30, 80)
+        except:
+            theLCD.displayText("Out of range", 0xfffff0, 30, 80)
+
         time.sleep(0.2)
 
     theLCD.refresh()
