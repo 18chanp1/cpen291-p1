@@ -475,7 +475,7 @@ class TicTacToe:
             
             if (not isinstance(move, int)) or self.played.__contains__(move) or move < 0:
                 if not displayedWarning:
-                    self.display.displayText("Box taken or wrong button idiot", 0xfffff0, 5, 110)
+                    self.display.displayText("invalid input", 0xfffff0, 5, 110)
                     displayedWarning = True
                 time.sleep(0.3)
                 
@@ -608,5 +608,6 @@ while(True):
             move_dict[int(keys[0])](2)  #repeat movement twice if selected
     time.sleep(0.2)
 
-    if theLCD.ee % 3 == 0:
-        theLCD.EE()
+    # if theLCD.ee % 3 == 0:
+    #     theLCD.ee = 0
+    #     theLCD.EE()
